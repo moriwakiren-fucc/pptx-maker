@@ -8,11 +8,16 @@ h2 {
   margin-top: 20px;
 }
 
+details pre {
+  width: 90%;
+}
+
 .AIbuttons{
   display: flex;
 }
 textarea.promput {
   font-size: 14px;
+  width: 100%;
 }
 textarea.codeinput {
   width: 100%;
