@@ -10,16 +10,7 @@ function copyButton() {
 
   // input / textarea を除去（文字化け防止）
   baseText.querySelectorAll("input, textarea").forEach(el => el.remove());
-
-  let result =
-`${baseText.textContent.trim()}
-
-## 条件（補足）
-- スライドの枚数は ${min} 枚以上 ${max} 枚以下とする
-
-## スライドの内容
-${content}
-`;
+  let result = baseText.textContent.trim().replace("- スライドの枚数は枚以上枚以下とする", `- スライドの枚数は ${min} 枚以上 ${max} 枚以下とする`)+content;
 
   navigator.clipboard.writeText(result);
   const btn = document.getElementById('copybutton');
