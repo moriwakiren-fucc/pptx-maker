@@ -3,25 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <title>AIスライド生成支援ツール</title>
-
-  <!-- pptxgenjs（ブラウザ用） -->
-  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
-
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <details open>
+    <summary>📋 他AIに貼り付けて使えるコード生成プロンプト（クリックで展開）</summary>
+    <pre class="prompt-box">
+あなたはJavaScriptエンジニアです。
+以下の条件を厳守してコードのみを出力してください。
+
+【ここに書くこと】
+- 生成したいスライドの内容（テーマ・構成・枚数など）
+- pptxgenjs を使うこと
+- Node.js でもブラウザでも動く書き方にするかどうか
+
+【注意事項】
+- html や css は一切書かない
+- require は使わない
+- new PptxGenJS() を使う
+- pres.writeFile() まで含める
+- console.log や説明文は書かない
+    </pre>
+  </details>
 
   <h2>AIスライド生成支援ツール</h2>
 
-  <textarea id="code" placeholder="ここに pptxgenjs のコードを貼り付けてください"></textarea>
+  <textarea id="codeInput" placeholder="ここに pptxgenjs のコードを貼り付けてください"></textarea>
 
-  <br />
-  <button id="runBtn">スライド生成 & ダウンロード</button>
+  <button id="runBtn">スライド生成（PPTXダウンロード）</button>
 
-  <pre id="log"></pre>
-  <h3>スライドプレビュー</h3>
-  <div id="preview"></div>
+  <pre id="errorBox"></pre>
 
-  <script src="main.js"></script>
+  <!-- pptxgenjs CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
