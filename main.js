@@ -1,17 +1,10 @@
 function copyButton(elementId) {
-    // 引数で得たIDの要素のテキストを取得
-    var element = document.getElementById(elementId);
-    
-    // 上記要素をクリップボードにコピーする
-    navigator.clipboard.writeText(element.textContent)
-}
-function copyButton(elementId) {
     const prompt = document.getElementById('prompt');
     var element = document.getElementById(elementId);
     // 3. .value で入力値を取得
-    var inputValue = prompt + element.value;
+    var copytext = prompt + element.value;
     // 上記要素をクリップボードにコピーする
-    navigator.clipboard.writeText(element.textContent)
+    navigator.clipboard.writeText(element.copytext)
 }
 
 
