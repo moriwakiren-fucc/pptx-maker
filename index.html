@@ -6,23 +6,24 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <details open>
+  <details>
     <summary>📋 他AIに貼り付けて使えるコード生成プロンプト（クリックで展開）</summary>
     <pre class="prompt-box">
-あなたはJavaScriptエンジニアです。
-以下の条件を厳守してコードのみを出力してください。
-
-【ここに書くこと】
-- 生成したいスライドの内容（テーマ・構成・枚数など）
-- pptxgenjs を使うこと
-- Node.js でもブラウザでも動く書き方にするかどうか
-
-【注意事項】
-- html や css は一切書かない
-- require は使わない
-- new PptxGenJS() を使う
-- pres.writeFile() まで含める
-- console.log や説明文は書かない
+        ## 指示
+        あなたはJavaScriptエンジニアです。
+        以下の{条件}を厳守してコードのみを出力してください。
+        
+        ## スライドの内容
+        - 【生成したいスライドの内容（テーマ・構成・枚数など）】
+        
+        ## 条件
+        - pptxgenjs を使うこと
+        - ブラウザで動く書き方にすること
+        - html や css は一切書かないこと
+        - require は使わない
+        - new PptxGenJS() を使う
+        - pres.writeFile() まで含める
+        - console.log や説明文は書かない
     </pre>
   </details>
 
