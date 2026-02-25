@@ -8,6 +8,10 @@ h2 {
   margin-top: 20px;
 }
 
+details{
+  width: 100vw
+}
+
 details pre {
   width: 95vw;
 }
