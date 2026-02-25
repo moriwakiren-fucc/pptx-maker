@@ -11,17 +11,6 @@ h2 {
 .AIbuttons{
   display: flex;
 }
-.AIbuttons p{
-  padding: 10px;
-  border: #000000 solid 1px;
-  border-radius: 50%;
-  margin: 5px;
-  background: #cccccc;
-}
-.AIbuttons p a{
-  color: #000;
-  text-decoration: none;
-}
 
 textarea {
   width: 100%;
