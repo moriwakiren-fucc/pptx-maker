@@ -22,7 +22,10 @@ ${content}
 `;
 
   navigator.clipboard.writeText(result);
+  const btn = document.getElementById('copybutton');
+  btn.textContent = 'コピー完了';
 }
+
 
 const runBtn = document.getElementById("runBtn");
 const codeInput = document.getElementById("codeInput");
