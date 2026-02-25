@@ -13,6 +13,7 @@ h2 {
 }
 textarea.promput {
   width: 100%;
+  font-size: 14px;
 }
 textarea.codeinput {
   width: 100%;
