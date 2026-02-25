@@ -1,37 +1,41 @@
-let pptx = null
-let generated = false
+document.getElementById("runBtn").addEventListener("click", runCode);
 
-document.getElementById("generateBtn").addEventListener("click", () => {
-  const code = document.getElementById("codeInput").value
-  const preview = document.getElementById("previewArea")
+function runCode() {
+  const log = document.getElementById("log");
+  log.textContent = "";
 
   try {
-    pptx = new PptxGenJS()
-    generated = false
+    /* ========= Node.js 風環境の吸収 ========= */
 
-    const log = []
-
-    const slideProxy = {
-      addSlide() {
-        log.push("スライドを1枚追加")
-        return pptx.addSlide()
+    window.require = function (name) {
+      if (name === "pptxgenjs") {
+        return PptxGenJS;
       }
-    }
+      throw new Error("Module not found: " + name);
+    };
 
-    const userFunc = new Function("pptx", "log", code)
-    userFunc(pptx, log)
+    window.pptxgen = function () {
+      return new PptxGenJS();
+    };
 
-    preview.textContent = log.join("\n")
-    generated = true
-    document.getElementById("downloadBtn").disabled = false
+    /* ========= writeFile の差異吸収 ========= */
 
+    const originalWriteFile = PptxGenJS.prototype.writeFile;
+    PptxGenJS.prototype.writeFile = function (arg) {
+      if (typeof arg === "object" && arg.fileName) {
+        return originalWriteFile.call(this, arg.fileName);
+      }
+      return originalWriteFile.call(this, arg);
+    };
+
+    /* ========= ユーザーコード実行 ========= */
+
+    const userCode = document.getElementById("code").value;
+    new Function(userCode)();
+
+    log.textContent = "✅ スライド生成成功（ダウンロードが開始されます）";
   } catch (e) {
-    preview.textContent = "エラー:\n" + e.message
+    log.textContent = "❌ エラー\n" + e.message;
+    console.error(e);
   }
-})
-
-document.getElementById("downloadBtn").addEventListener("click", () => {
-  if (pptx && generated) {
-    pptx.writeFile("generated.pptx")
-  }
-})
+}
