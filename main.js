@@ -1,9 +1,9 @@
 function copyButton() {
   const promptBox = document.getElementById("prompt");
 
-  const min = document.getElementById("min").value || "【未入力】";
-  const max = document.getElementById("max").value || "【未入力】";
-  const content = document.getElementById("promput").value || "【未入力】";
+  const min = document.getElementById("min").value || "";
+  const max = document.getElementById("max").value || "";
+  const content = document.getElementById("promput").value || "";
 
   // pre内の「純テキスト部分」だけ取得
   const baseText = promptBox.cloneNode(true);
