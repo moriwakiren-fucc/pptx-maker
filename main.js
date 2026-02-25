@@ -1,12 +1,28 @@
-function copyButton(elementId) {
-    const prompt = document.getElementById('prompt');
-    var element = document.getElementById(elementId);
-    // 3. .value で入力値を取得
-    var copytext = prompt.textContent + element.value;
-    // 上記要素をクリップボードにコピーする
-    navigator.clipboard.writeText(copytext)
-}
+function copyButton() {
+  const promptBox = document.getElementById("prompt");
 
+  const min = document.getElementById("min").value || "【未入力】";
+  const max = document.getElementById("max").value || "【未入力】";
+  const content = document.getElementById("promput").value || "【未入力】";
+
+  // pre内の「純テキスト部分」だけ取得
+  const baseText = promptBox.cloneNode(true);
+
+  // input / textarea を除去（文字化け防止）
+  baseText.querySelectorAll("input, textarea").forEach(el => el.remove());
+
+  let result =
+`${baseText.textContent.trim()}
+
+## 条件（補足）
+- スライドの枚数は ${min} 枚以上 ${max} 枚以下とする
+
+## スライドの内容
+${content}
+`;
+
+  navigator.clipboard.writeText(result);
+}
 
 const runBtn = document.getElementById("runBtn");
 const codeInput = document.getElementById("codeInput");
