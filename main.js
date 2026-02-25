@@ -27,9 +27,9 @@ function chatP() {
 
   // input / textarea を除去（文字化け防止）
   baseText.querySelectorAll("input, textarea").forEach(el => el.remove());
-  let result = baseText.textContent.trim().replace("- スライドの枚数は枚以上枚以下とする", `- スライドの枚数は ${min} 枚以上 ${max} 枚以下とする`)+content;
-  let encoded = encodeURIComponent(result)
-  window.open('https://chatgpt.com?q=' + encorded, '_blank', 'noopener,noreferrer')
+  let resultch = baseText.textContent.trim().replace("- スライドの枚数は枚以上枚以下とする", `- スライドの枚数は ${min} 枚以上 ${max} 枚以下とする`)+content;
+  let encodedch = encodeURIComponent(resultch)
+  window.open('https://chatgpt.com?q=' + encordedch, '_blank', 'noopener,noreferrer')
 }
 
 const runBtn = document.getElementById("runBtn");
