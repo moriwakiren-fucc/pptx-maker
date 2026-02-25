@@ -11,6 +11,12 @@ h2 {
 .buttons{
   display: flex;
 }
+.buttons p{
+  paddng: 2px
+  border: #000000 solid 1px;
+  border-radius: 50%;
+  margin: 5px:
+}
 
 textarea {
   width: 100%;
