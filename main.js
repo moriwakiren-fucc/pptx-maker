@@ -16,22 +16,6 @@ function copyButton() {
   btn.textContent = 'コピー完了';
 }
 
-function chatP() {
-  const promptBox = document.getElementById("prompt");
-  const min = document.getElementById("min").value || "";
-  const max = document.getElementById("max").value || "";
-  const content = document.getElementById("promput").value || "";
-
-  // pre内の「純テキスト部分」だけ取得
-  const baseText = promptBox.cloneNode(true);
-
-  // input / textarea を除去（文字化け防止）
-  baseText.querySelectorAll("input, textarea").forEach(el => el.remove());
-  let resultch = baseText.textContent.trim().replace("- スライドの枚数は枚以上枚以下とする", `- スライドの枚数は ${min} 枚以上 ${max} 枚以下とする`)+content;
-  let encodedch = encodeURIComponent(resultch)
-  window.open(`https://chatgpt.com?q=${encordedch}`, '_blank', 'noopener,noreferrer')
-}
-
 const runBtn = document.getElementById("runBtn");
 const codeInput = document.getElementById("codeInput");
 const errorBox = document.getElementById("errorBox");
