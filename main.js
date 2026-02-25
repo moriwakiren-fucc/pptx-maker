@@ -1,36 +1,40 @@
 function copyButton(elementId) {
   const element = document.getElementById(elementId);
-  const text = element.textContent;
+  const text = element.innerText; // ← textContent ではなく innerText
 
-  // Clipboard API が使える場合（HTTPS / localhost）
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(text).catch(() => {
-      fallbackCopy(text);
-    });
-  } else {
-    // file:// や HTTP 用のフォールバック
-    fallbackCopy(text);
-  }
+  fallbackCopy(text);
 }
 
 function fallbackCopy(text) {
   const textarea = document.createElement("textarea");
   textarea.value = text;
-  textarea.style.position = "fixed";
-  textarea.style.opacity = "0";
+
+  // Safari 対策（重要）
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "absolute";
+  textarea.style.left = "-9999px";
+
   document.body.appendChild(textarea);
+
+  // ★ Safari では focus が必須
+  textarea.focus();
   textarea.select();
 
+  let success = false;
   try {
-    document.execCommand("copy");
+    success = document.execCommand("copy");
   } catch (e) {
-    alert("コピーに失敗しました");
+    success = false;
   }
 
   document.body.removeChild(textarea);
+
+  if (!success) {
+    alert("コピーに失敗しました（ブラウザ制限）");
+  }
 }
 
-// ====== 既存処理 ======
+// ===== PPTX 実行部分 =====
 
 const runBtn = document.getElementById("runBtn");
 const codeInput = document.getElementById("codeInput");
