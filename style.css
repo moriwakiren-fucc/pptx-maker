@@ -8,14 +8,19 @@ h2 {
   margin-top: 20px;
 }
 
-.buttons{
+.AIbuttons{
   display: flex;
 }
-.buttons p{
+.AIbuttons p{
   paddng: 2px
   border: #000000 solid 1px;
   border-radius: 50%;
   margin: 5px:
+  background: #cccccc;
+}
+.AIbuttons p a{
+  color: #000;
+  text-decoration: none;
 }
 
 textarea {
