@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>スライド生成アプリ</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- pptxgenjs -->
+  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs/dist/pptxgen.bundle.js"></script>
+</head>
+<body>
+
+  <h1>スライド生成アプリ</h1>
+
+  <textarea id="codeInput" placeholder="ここに pptxgenjs のコードを書いてください"></textarea>
+
+  <button id="generateBtn">PPTX生成</button>
+  <button id="downloadBtn" disabled>ダウンロード</button>
+
+  <div id="preview">
+    <h2>プレビュー</h2>
+    <pre id="previewArea">まだ生成されていません</pre>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
