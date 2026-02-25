@@ -22,3 +22,14 @@ pre {
   padding: 10px;
   white-space: pre-wrap;
 }
+
+#preview {
+  margin-top: 10px;
+}
+
+.slide-preview {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 8px;
+  background: #fafafa;
+}
