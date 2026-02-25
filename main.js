@@ -2,7 +2,7 @@ function copyButton(elementId) {
     const prompt = document.getElementById('prompt');
     var element = document.getElementById(elementId);
     // 3. .value で入力値を取得
-    var copytext = prompt + element.value;
+    var copytext = prompt.value + element.value;
     // 上記要素をクリップボードにコピーする
     navigator.clipboard.writeText(copytext)
 }
