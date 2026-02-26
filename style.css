@@ -9,6 +9,7 @@ h2 {
 }
 
 details{
+  width: 95vw;
   background: #FFAA0033;
 }
 
@@ -23,6 +24,7 @@ details pre {
 
 .AIbuttons{
   display: flex;
+  margin: 5px 2px
 }
 textarea.promput {
   font-size: 14px;
