@@ -21,6 +21,7 @@ function copyButton() {
 	async function main() {
 	  await sleep(2000); // ここで2秒待機
 	}
+	main()
   btn.textContent = 'コピーする';
 }
 
