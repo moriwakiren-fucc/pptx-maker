@@ -10,7 +10,6 @@ h2 {
 
 details{
   width: 95vw;
-  padding: 0 0 4px 2px;
   background: #FFAA0033;
 }
 
@@ -21,6 +20,7 @@ details{
 
 .AIbuttons{
   display: flex;
+  margin-bottom: 4px;
   gap: 2px;
 }
 .AIbuttons button{
@@ -29,6 +29,7 @@ details{
 textarea.promput {
   font-size: 14px;
   width: 95%;
+  margin-bottom: 3px;
 }
 textarea.codeinput {
   width: 100%;
