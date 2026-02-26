@@ -70,32 +70,19 @@ h2 {
 }
 /* メニューのデザイン*/
 .nav_content {
-  width: 90%;
+  width: 100%;
   position: fixed;
-  top: 0%;
-  left: -90%; /* メニューを画面の外に飛ばす */
+  bottom: 100%;
+  left: 0%; /* メニューを画面の外に飛ばす */
   z-index: 99;
   background: #FFFFFF99;
   transition: .5s;
-  padding-top: 20px;
-  font-size: 1.5em;
   overflow: scroll;
-  font-family: sans-serif;
-}
-
-.nav_list li{
-  list-style: none; /* 点を消す */
-  padding: 0;       /* 余白も消す（推奨） */
-}
-
-.nav_list li a{
-  text-decoration: none;
-  color: #0000FF;
 }
   
 /* アイコンがクリックされたらメニューを表示 */
 #drawer_input:checked ~ .nav_content {
-  left: 0;
+  bottom: 0;
 }
 
 details{
