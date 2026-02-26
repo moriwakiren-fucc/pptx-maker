@@ -14,7 +14,7 @@ function copyButton() {
   navigator.clipboard.writeText(result);
   const btn = document.getElementById('copybutton');	
   btn.textContent = 'コピー完了';
-  // btn.textContent = 'コピーする';
+  btn.textContent = 'コピーする';
 }
 
 const runBtn = document.getElementById("runBtn");
