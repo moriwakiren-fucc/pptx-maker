@@ -16,6 +16,8 @@ h2 {
 .nav_title{
   background: #FFFFFFCC;
   position: fixed;
+  top: 0;
+  font-size: 2.5em;
   left: 4em;
   z-index: 100;
 }
