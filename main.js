@@ -11,11 +11,16 @@ function copyButton() {
 
   // input / textarea を除去（文字化け防止）
   baseText.querySelectorAll("input, textarea").forEach(el => el.remove());
-  let result = baseText.textContent.trim().replace("- スライドの枚数は枚以上枚以下とする", `- スライドの枚数は ${min} 枚以上 ${max} 枚以下とする`)+content;
+  let result = baseText.textContent.trim().replace("- スライドの枚数は枚以上枚以下とする", `- スライドの枚数は ${min} 枚以上 ${max} 枚以下とする`).replace("以下の欄にその他の条件を記入することもできます。",demand)+content;
   navigator.clipboard.writeText(result);
   const btn = document.getElementById('copybutton');
+	
   btn.textContent = 'コピー完了';
-	setTimeout(blank, 2000);
+	const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+	
+	async function main() {
+	  await sleep(2000); // ここで2秒待機
+	}
   btn.textContent = 'コピーする';
 }
 
