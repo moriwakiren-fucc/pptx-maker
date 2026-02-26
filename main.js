@@ -16,12 +16,6 @@ function copyButton() {
   const btn = document.getElementById('copybutton');
 	
   btn.textContent = 'コピー完了';
-	const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-	
-	async function main() {
-	  await sleep(2000); // ここで2秒待機
-	}
-	main()
   // btn.textContent = 'コピーする';
 }
 
