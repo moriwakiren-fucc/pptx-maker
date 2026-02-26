@@ -8,7 +8,14 @@ h2 {
   margin-top: 20px;
 }
 
+summary{
+  position: fixed;
+  top:0;
+  left:0;
+}
+
 details{
+  margin-top:0;
   width: 95vw;
   background: #FFAA0033;
 }
