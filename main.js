@@ -1,9 +1,4 @@
-const sleep = (time) => new Promise((r) => setTimeout(r, time));//timeはミリ秒
-
-async function taiki(sec){
-	await sleep(sec * 1000);
-}
-
+function blank(){}
 function copyButton() {
   const promptBox = document.getElementById("prompt");
   const min = document.getElementById("min").value || "";
@@ -17,11 +12,10 @@ function copyButton() {
   // input / textarea を除去（文字化け防止）
   baseText.querySelectorAll("input, textarea").forEach(el => el.remove());
   let result = baseText.textContent.trim().replace("- スライドの枚数は枚以上枚以下とする", `- スライドの枚数は ${min} 枚以上 ${max} 枚以下とする`)+content;
-
   navigator.clipboard.writeText(result);
   const btn = document.getElementById('copybutton');
   btn.textContent = 'コピー完了';
-  taiki(1)
+	setTimeout(blank, 2000);
   btn.textContent = 'コピーする';
 }
 
