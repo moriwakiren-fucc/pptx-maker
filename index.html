@@ -23,7 +23,24 @@
 
 ## 条件
 - pptxgenjs を使うこと
-- import は書いてはいけない
+- import を書いてはいけない
+【重要・必須条件】
+- pptxgenjs を使用する場合、図形（長方形・線など）は省略記法（rect, line, ellipse 等）を一切使用しないこと
+- defineSlideMaster や addSlide 内の objects では、必ず以下の正式形式で記述すること
+  ```
+  {
+    shape: pres.shapes.RECTANGLE,
+    x: 数値または'%',
+    y: 数値または'%',
+    w: 数値または'%',
+    h: 数値,
+    fill: { color: '16進数カラー' }
+  }
+  ```
+- shape プロパティを省略したコードは禁止
+- pptxgen.shapes.LINE / pres.shapes.RECTANGLE など、公式 enum を必ず明示すること
+- 「短縮形」「新しい書き方」「最近のサンプル由来の省略構文」は使用しないこと
+- CDN / jsDelivr / ブラウザ実行環境でも確実に動作するコードのみを出力すること
 - ブラウザで動く書き方にすること
 - html や css を一切書いてはいけない
 - require を使ってはいけない
