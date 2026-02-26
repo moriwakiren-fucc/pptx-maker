@@ -1,3 +1,9 @@
+const sleep = (time) => new Promise((r) => setTimeout(r, time));//timeはミリ秒
+
+async function taiki(sec){
+	await sleep(sec * 1000);
+}
+
 function copyButton() {
   const promptBox = document.getElementById("prompt");
   const min = document.getElementById("min").value || "";
@@ -15,6 +21,8 @@ function copyButton() {
   navigator.clipboard.writeText(result);
   const btn = document.getElementById('copybutton');
   btn.textContent = 'コピー完了';
+  taiki(1)
+  btn.textContent = 'コピーする';
 }
 
 const runBtn = document.getElementById("runBtn");
