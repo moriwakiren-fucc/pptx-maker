@@ -13,6 +13,12 @@ h2 {
   display: none;
 }
 
+.nav_title{
+  position: fixed;
+  left: 4em;
+  z-index: 100;
+}
+
 /* ハンバーガーアイコンの設置スペース */
 .drawer_open {
   background-color:#FFFFFF99;
