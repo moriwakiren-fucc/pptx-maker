@@ -1,3 +1,5 @@
+let copyTimer = null; // ★ タイマーを外に出す
+
 function copyButton() {
   const promptBox = document.getElementById("prompt");
   const min = document.getElementById("min").value || "";
@@ -8,9 +10,12 @@ function copyButton() {
   const baseText = promptBox.cloneNode(true);
   baseText.querySelectorAll("input, textarea").forEach(el => el.remove());
 
-  let result = baseText.textContent
+  const result = baseText.textContent
     .trim()
-    .replace("- スライドの枚数は枚以上枚以下とする", `- スライドの枚数は ${min} 枚以上 ${max} 枚以下とする`)
+    .replace(
+      "- スライドの枚数は枚以上枚以下とする",
+      `- スライドの枚数は ${min} 枚以上 ${max} 枚以下とする`
+    )
     .replace("\n以下の欄にその他の条件を記入することもできます。", demand)
     + content;
 
@@ -19,9 +24,15 @@ function copyButton() {
   const btn = document.getElementById("copybutton");
   btn.textContent = "コピー完了";
 
-  // ★ ここを追加
-  setTimeout(() => {
+  // ★ 以前のタイマーを必ず消す
+  if (copyTimer !== null) {
+    clearTimeout(copyTimer);
+  }
+
+  // ★ 新しく2秒タイマーを設定
+  copyTimer = setTimeout(() => {
     btn.textContent = "コピーする";
+    copyTimer = null;
   }, 2000);
 }
 
