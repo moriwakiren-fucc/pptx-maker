@@ -2,6 +2,7 @@ function copyButton() {
   const promptBox = document.getElementById("prompt");
   const min = document.getElementById("min").value || "";
   const max = document.getElementById("max").value || "";
+  const demand = document.getElementById("demand").value || "";
   const content = document.getElementById("promput").value || "";
 
   // pre内の「純テキスト部分」だけ取得
