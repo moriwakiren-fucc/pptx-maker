@@ -56,3 +56,19 @@ runBtn.addEventListener("click", () => {
     errorBox.textContent = "構文または実行エラー:\n\n" + err.message;
   }
 });
+
+// 画面のどこかをクリックしたとき
+document.addEventListener("click", (e) => {
+  const active = document.activeElement;
+
+  // フォーカス中の要素が input または textarea のときだけ処理
+  if (
+    active &&
+    (active.tagName === "INPUT" || active.tagName === "TEXTAREA")
+  ) {
+    // クリックした場所が入力欄の外ならフォーカス解除
+    if (!active.contains(e.target)) {
+      active.blur();
+    }
+  }
+});
