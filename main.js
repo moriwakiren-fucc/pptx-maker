@@ -17,7 +17,6 @@ function copyButton() {
       `- スライドの枚数は ${min} 枚以上 ${max} 枚以下とする`
     )
     .replace("以下の欄にその他の条件を記入することもできます。", demand)
-    + "\n"
     + content;
 
   navigator.clipboard.writeText(result);
