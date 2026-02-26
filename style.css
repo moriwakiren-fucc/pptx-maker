@@ -72,7 +72,7 @@ h2 {
 .nav_content {
   width: 100%;
   position: fixed;
-  bottom: 100%;
+  top: -100vh;
   left: 0%; /* メニューを画面の外に飛ばす */
   z-index: 99;
   background: #FFFFFF99;
@@ -82,7 +82,7 @@ h2 {
   
 /* アイコンがクリックされたらメニューを表示 */
 #drawer_input:checked ~ .nav_content {
-  bottom: 0;
+  top: 0;
 }
 
 details{
