@@ -13,10 +13,6 @@ details{
   background: #FFAA0033;
 }
 
-details pre {
-  width: 95%;
-}
-
 .ikanoran{
   font-size: 1.3em;
   color: #FFFF00;
@@ -52,6 +48,7 @@ button {
 }
 
 .prompt-box {
+  width: 95%;
   background: #0f172a;
   color: #e5e7eb;
   padding: 12px;
