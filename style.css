@@ -20,7 +20,7 @@ details{
 
 .AIbuttons{
   display: flex;
-  padding: 5px 2px;
+  gap: 2px;
 }
 .AIbuttons button{
   margin: 0 3px;
