@@ -20,7 +20,10 @@ details{
 
 .AIbuttons{
   display: flex;
-  margin: 5px 2px;
+  padding: 5px 2px;
+}
+.AIbuttons button{
+  margin: 0 3px;
 }
 textarea.promput {
   font-size: 14px;
@@ -40,7 +43,6 @@ button {
   font-size: 16px;
   cursor: pointer;
 }
-
 #errorBox {
   margin-top: 12px;
   color: #dc2626;
