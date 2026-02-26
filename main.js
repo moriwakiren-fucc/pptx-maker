@@ -19,6 +19,7 @@ function copyButton() {
       `- スライドの枚数は ${min} 枚以上 ${max} 枚以下とする`
     )
     .replace(ikanoranText, demand)
+    + '\n'
     + content;
 
   navigator.clipboard.writeText(result);
