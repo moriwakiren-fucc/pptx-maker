@@ -1,4 +1,3 @@
-function blank(){}
 function copyButton() {
   const promptBox = document.getElementById("prompt");
   const min = document.getElementById("min").value || "";
