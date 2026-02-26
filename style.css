@@ -12,6 +12,10 @@ details pre {
   width: 95vw;
 }
 
+.ikanoran{
+  font-size: 1.3em;
+}
+
 .AIbuttons{
   display: flex;
 }
