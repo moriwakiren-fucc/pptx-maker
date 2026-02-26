@@ -22,7 +22,7 @@ function copyButton() {
 	  await sleep(2000); // ここで2秒待機
 	}
 	main()
-  btn.textContent = 'コピーする';
+  // btn.textContent = 'コピーする';
 }
 
 const runBtn = document.getElementById("runBtn");
