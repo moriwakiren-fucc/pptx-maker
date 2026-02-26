@@ -20,7 +20,7 @@ details{
 
 .AIbuttons{
   display: flex;
-  margin: 5px 2px
+  margin: 5px 2px;
 }
 textarea.promput {
   font-size: 14px;
