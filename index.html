@@ -15,11 +15,16 @@
 ## 条件
 - pptxgenjs を使うこと
 - ブラウザで動く書き方にすること
-- html や css は一切書かないこと
-- require は使わない
-- new PptxGenJS() を使う
-- pres.writeFile() まで含める
-- console.log や説明文は書かない
+- html や css を一切書いてはいけない
+- require を使ってはいけない
+- new PptxGenJS() を使うこと
+- pres.writeFile() まで含めること
+- console.log や説明文を書いてはいけない
+- {スライドの内容}の文章を視覚的に理解しやすくするため、**オートシェイプなどを効果的に使用する**こと
+- {スライドの内容}を伝える上での説得力を強くすため、フォントサイズ,文字色,図形やスライドの背景色などの**書式を適切に選択する**こと
+- {スライドの内容}を伝える上でグラフなどの統計データが必要な場合は、その部分に背景色が yellow の長方形を設置し、その図形内に "何を表すデータか" を明記すること
+- 結果はコードブロックに出力すること
+- 生成後にコードの実行をしてはいけない
 - スライドの枚数は<input type="text" pattern="\d*" inputmode="numeric" size="4" id="min">枚以上<input type="text" pattern="\d*" inputmode="numeric" size="4" id="max">枚以下とする
       
 ## スライドの内容
