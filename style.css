@@ -32,6 +32,7 @@ h2 {
   top: 0;
   height: 3em;
   width: 3em;
+  border: solid #000000 1px;
   left: 0;
   z-index: 101;/* 重なり順を一番上にする */
   cursor: pointer;
