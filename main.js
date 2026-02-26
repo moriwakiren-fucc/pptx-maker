@@ -57,18 +57,20 @@ runBtn.addEventListener("click", () => {
   }
 });
 
-// 画面のどこかをクリックしたとき
-document.addEventListener("click", (e) => {
-  const active = document.activeElement;
+// 入力欄フォーカス解除（PCクリック・スマホタップ両対応）
+document.addEventListener(
+  "pointerdown",
+  (e) => {
+    const active = document.activeElement;
 
-  // フォーカス中の要素が input または textarea のときだけ処理
-  if (
-    active &&
-    (active.tagName === "INPUT" || active.tagName === "TEXTAREA")
-  ) {
-    // クリックした場所が入力欄の外ならフォーカス解除
-    if (!active.contains(e.target)) {
-      active.blur();
+    if (
+      active &&
+      (active.tagName === "INPUT" || active.tagName === "TEXTAREA")
+    ) {
+      if (!active.contains(e.target)) {
+        active.blur();
+      }
     }
-  }
-});
+  },
+  true // ★ キャプチャフェーズで実行
+);
