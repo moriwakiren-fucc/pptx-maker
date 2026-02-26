@@ -70,12 +70,12 @@ h2 {
 }
 /* メニューのデザイン*/
 .nav_content {
+  height: 100%;
   width: 100%;
   position: fixed;
   top: -100vh;
-  left: 0%; /* メニューを画面の外に飛ばす */
+  left: 0%;
   z-index: 99;
-  background: #FFFFFF99;
   transition: .5s;
   overflow: scroll;
 }
