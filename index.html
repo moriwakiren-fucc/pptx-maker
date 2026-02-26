@@ -6,8 +6,18 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <details>
-    <summary>📋 AIに貼り付けて使えるコード生成プロンプト（クリックで開閉）</summary>
+<!-- ハンバーガーメニュー部分 -->
+<div class="nav">
+
+  <!-- ハンバーガーメニューの表示・非表示を切り替えるチェックボックス -->
+  <input id="drawer_input" class="drawer_hidden" type="checkbox">
+
+  <!-- ハンバーガーアイコン -->
+  <label for="drawer_input" class="drawer_open"><span class="icon"></span><span>📋 AIに貼り付けて使えるコード生成プロンプト（クリックで開閉）</span></label>
+
+  <!-- メニュー -->
+  <nav class="nav_content">
+    
     <pre class="prompt-box" id="prompt">## 指示
 あなたは**JavaScriptエンジニア**かつ**プレゼンテーションスライドの上級デザイナー**です。
 以下の{条件}を厳守してコードのみを出力してください。
@@ -45,7 +55,9 @@
     <button onclick="window.open('https://claude.ai', '_blank', 'noopener,noreferrer')">Claudeを開く</button>
     <button onclick="window.open('https://gemini.google.com/', '_blank', 'noopener,noreferrer')">Geminiを開く</button>
     </div>
-  </details>
+  </nav>
+
+</div>
 
   <h2>AIスライド生成支援ツール</h2>
   
