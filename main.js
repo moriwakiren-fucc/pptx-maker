@@ -2,12 +2,14 @@ let copyTimer = null; // ★ タイマーを外に出す
 
 function copyButton() {
   const promptBox = document.getElementById("prompt");
+  const ikanoran = document.getElementById("ikanoran");
   const min = document.getElementById("min").value || "";
   const max = document.getElementById("max").value || "";
   const demand = document.getElementById("demand").value || "";
   const content = document.getElementById("promput").value || "";
 
   const baseText = promptBox.cloneNode(true);
+  const ikanoranText = ikanoran.cloneNode(true);
   baseText.querySelectorAll("input, textarea").forEach(el => el.remove());
 
   const result = baseText.textContent
@@ -16,7 +18,7 @@ function copyButton() {
       "- スライドの枚数は枚以上枚以下とする",
       `- スライドの枚数は ${min} 枚以上 ${max} 枚以下とする`
     )
-    .replace("以下の欄にその他の条件を記入することもできます。", demand)
+    .replace(ikanoranText, demand)
     + content;
 
   navigator.clipboard.writeText(result);
