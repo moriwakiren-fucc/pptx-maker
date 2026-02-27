@@ -28,6 +28,8 @@
 ## 【プログラムにおける規則】
 - pptxgenjs を必ず使うこと
 - import を書いてはいけない
+- 結果はコードブロックに出力すること
+- コード生成後にそのコードの実行(スライドの生成)はせず、そのまま終了すること
 - 図形（長方形・線など）は省略記法（rect, line, ellipse 等）を一切使用しないこと
 - defineSlideMaster や addSlide 内の objects では、必ず以下の公式使用通りの正式記法で記述すること
   ```
@@ -110,8 +112,6 @@
 ---
 
 ## 【その他の条件】
-- 結果はコードブロックに出力すること
-- 生成後にコードの実行をしてはいけない
 - スライドの枚数は<input type="text" pattern="\d*" inputmode="numeric" size="4" id="min">枚以上<input type="text" pattern="\d*" inputmode="numeric" size="4" id="max">枚以下とする
 - 定義,背景,理由などを勝手に省略せず、明示する
 - 説明文は十分な分量を許容する
