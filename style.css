@@ -22,6 +22,10 @@ h2 {
   z-index: 100;
 }
 
+.nav details {
+  background: #00FFFF55;
+}
+
 /* ハンバーガーアイコンの設置スペース */
 .drawer_open {
   background-color:#FFFFFF99;
