@@ -58,37 +58,28 @@ h2 {
 
 /* 三本線の一番上の棒の位置調整 */
 .drawer_open .icon:before {
-  top: calc(-3em * 1.7320508 / 4);
-  left: calc(3em / 4);
-  transform: rotate(60deg);
+  bottom: calc(3em / 4);
 }
 
 /* 三本線の一番下の棒の位置調整 */
 .drawer_open .icon:after {
-  top: calc(-3em * 1.7320508 / 4);
-  right: calc(3em / 4);
-  transform: rotate(-60deg);
-}
-
-.drawer_open .icon {
-  top: calc(3em * 1.7320508 / 2);
+  top: calc(3em / 4);
 }
 
 /* アイコンがクリックされたら真ん中の線を透明にする */
 #drawer_input:checked ~ .drawer_open .icon {
-  top: 0;
-  /*background: rgba(255, 255, 255, 0);*/
+  background: rgba(255, 255, 255, 0);
 }
 
 /* アイコンがクリックされたらアイコンが×印になように上下の線を回転 */
 #drawer_input:checked ~ .drawer_open .icon::before {
-  top: calc(3em * 1.7320508 / 4);
-  transform: rotate(-60deg);
+  bottom: 0;
+  transform: rotate(45deg);
 }
 
 #drawer_input:checked ~ .drawer_open .icon::after {
-  top: calc(3em * 1.7320508 / 4);
-  transform: rotate(60deg);
+  top: 0;
+  transform: rotate(-45deg);
 }
 
 /* メニューのデザイン*/
