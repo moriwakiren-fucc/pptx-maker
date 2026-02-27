@@ -58,20 +58,20 @@ h2 {
 
 /* 三本線の一番上の棒の位置調整 */
 .drawer_open .icon:before {
-  bottom: calc(3em / 4);
-  left: calc(3em / 2);
+  top: 0;
+  left: calc(3em / 4);
   transform: rotate(-60deg);
 }
 
 /* 三本線の一番下の棒の位置調整 */
 .drawer_open .icon:after {
-  top: calc(3em / 4);
-  left: calc(3em / 2);
+  top: 0;
+  right: calc(3em / 4);
   transform: rotate(60deg);
 }
 
 .drawer_open .icon {
-  top: calc(3em / 4);
+  bottom: 1.7em;
 }
 
 /* アイコンがクリックされたら真ん中の線を透明にする */
@@ -82,11 +82,11 @@ h2 {
 
 /* アイコンがクリックされたらアイコンが×印になように上下の線を回転 */
 #drawer_input:checked ~ .drawer_open .icon::before {
-  transform: rotate(-60deg);
+  transform: rotate(60deg);
 }
 
 #drawer_input:checked ~ .drawer_open .icon::after {
-  transform: rotate(60deg);
+  transform: rotate(-60deg);
 }
 
 /* メニューのデザイン*/
