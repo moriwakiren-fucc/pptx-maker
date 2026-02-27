@@ -67,7 +67,7 @@ h2 {
 .drawer_open .icon:after {
   top: calc(1vh / 8 / 2);
   right: calc(1vh / 8 / 4);
-  transform: rotate(60deg);
+  transform: rotate(-60deg);
 }
 
 /* アイコンがクリックされたら真ん中の線を透明にする */
