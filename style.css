@@ -48,7 +48,7 @@ h2 {
   content: '';
   display: block;
   height: calc(3em / 8);
-  width: calc(3em * 0.85);
+  width: calc(3em * 0.85 / 0.85);
   border-radius: calc(3em / 6);
   background: #333;
   transition: 0.5s;
@@ -60,18 +60,18 @@ h2 {
 .drawer_open .icon:before {
   top: 0;
   left: calc(3em / 4);
-  transform: rotate(-60deg);
+  transform: rotate(60deg);
 }
 
 /* 三本線の一番下の棒の位置調整 */
 .drawer_open .icon:after {
   top: 0;
   right: calc(3em / 4);
-  transform: rotate(60deg);
+  transform: rotate(-60deg);
 }
 
 .drawer_open .icon {
-  bottom: 1.7em;
+  top: calc(3em * 1.7320508 / 2);
 }
 
 /* アイコンがクリックされたら真ん中の線を透明にする */
@@ -82,11 +82,13 @@ h2 {
 
 /* アイコンがクリックされたらアイコンが×印になように上下の線を回転 */
 #drawer_input:checked ~ .drawer_open .icon::before {
-  transform: rotate(60deg);
+  top: calc(3em * 1.7320508 / 2);
+  transform: rotate(-60deg);
 }
 
 #drawer_input:checked ~ .drawer_open .icon::after {
-  transform: rotate(-60deg);
+  top: calc(3em * 1.7320508 / 2);
+  transform: rotate(60deg);
 }
 
 /* メニューのデザイン*/
