@@ -59,28 +59,36 @@ h2 {
 /* 三本線の一番上の棒の位置調整 */
 .drawer_open .icon:before {
   bottom: calc(3em / 4);
+  left: calc(3em / 2);
+  transform: rotate(-60deg);
 }
 
 /* 三本線の一番下の棒の位置調整 */
 .drawer_open .icon:after {
   top: calc(3em / 4);
+  left: calc(3em / 2);
+  transform: rotate(60deg);
+}
+
+.drawer_open .icon {
+  top: calc(3em / 4);
 }
 
 /* アイコンがクリックされたら真ん中の線を透明にする */
 #drawer_input:checked ~ .drawer_open .icon {
-  background: rgba(255, 255, 255, 0);
+  top: calc(1em / 4);
+  /*background: rgba(255, 255, 255, 0);*/
 }
 
 /* アイコンがクリックされたらアイコンが×印になように上下の線を回転 */
 #drawer_input:checked ~ .drawer_open .icon::before {
-  bottom: 0;
-  transform: rotate(45deg);
+  transform: rotate(-60deg);
 }
 
 #drawer_input:checked ~ .drawer_open .icon::after {
-  top: 0;
-  transform: rotate(-45deg);
+  transform: rotate(60deg);
 }
+
 /* メニューのデザイン*/
 .nav_content {
   height: 100%;
