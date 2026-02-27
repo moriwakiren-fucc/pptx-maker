@@ -66,10 +66,10 @@ h2 {
   top: calc(3em / 4);
 }
 
-#drawer_input:checked ~ .open{
+#drawer_input:checked + .open{
   display: hidden;
 }
-#drawer_input:not(checked) ~ .closed{
+#drawer_input:not(:checked) + .closed{
   display: hidden;
 }
 
