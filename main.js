@@ -20,7 +20,7 @@ function copyButton() {
       "- スライドの枚数は枚以上枚以下とする",
       `- スライドの枚数は ${min} 枚以上 ${max} 枚以下とする`
     )
-    .replace("以下の欄にその他の条件を記入することもできます。", demand)
+    .replace(ikanoran.textContent, demand)
     + "\n"
     + content;
 
