@@ -66,13 +66,6 @@ h2 {
   top: calc(3em / 4);
 }
 
-#drawer_input:checked + .open{
-  display: hidden;
-}
-#drawer_input:not(:checked) + .closed{
-  display: hidden;
-}
-
 /* アイコンがクリックされたら真ん中の線を透明にする */
 #drawer_input:checked ~ .drawer_open .icon {
   background: rgba(255, 255, 255, 0);
