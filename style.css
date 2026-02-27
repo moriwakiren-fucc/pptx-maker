@@ -28,7 +28,7 @@ h1 {
 
 /* ハンバーガーアイコンの設置スペース */
 .drawer_open {
-  background-color:#FFFFFF99;
+  background-color:#FFFF88CC;
   display: flex;
   justify-content: center;
   align-items: center;
