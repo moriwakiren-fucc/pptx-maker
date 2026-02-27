@@ -58,14 +58,14 @@ h2 {
 
 /* 三本線の一番上の棒の位置調整 */
 .drawer_open .icon:before {
-  top: 0;
+  top: calc(-3em * 1.7320508 / 4);
   left: calc(3em / 4);
   transform: rotate(60deg);
 }
 
 /* 三本線の一番下の棒の位置調整 */
 .drawer_open .icon:after {
-  top: 0;
+  top: calc(-3em * 1.7320508 / 4);
   right: calc(3em / 4);
   transform: rotate(-60deg);
 }
@@ -82,12 +82,12 @@ h2 {
 
 /* アイコンがクリックされたらアイコンが×印になように上下の線を回転 */
 #drawer_input:checked ~ .drawer_open .icon::before {
-  top: calc(3em * 1.7320508 / 2);
+  top: calc(3em * 1.7320508 / 4);
   transform: rotate(-60deg);
 }
 
 #drawer_input:checked ~ .drawer_open .icon::after {
-  top: calc(3em * 1.7320508 / 2);
+  top: calc(3em * 1.7320508 / 4);
   transform: rotate(60deg);
 }
 
