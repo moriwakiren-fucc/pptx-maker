@@ -17,7 +17,7 @@ h2 {
   background: #FFFFFFCC;
   position: fixed;
   top: 0;
-  font-size: calc(1vh / 8 / 1.2);
+  font-size: 1em;
   left: calc(1vh / 8 * 1.5);
   z-index: 100;
 }
@@ -58,8 +58,10 @@ h2 {
 
 /* 三本線の一番上の棒の位置調整 */
 .drawer_open .icon:before {
-  top: calc(1vh / 8 / 2);
-  left: calc(1vh / 8 / 4);
+  /* top: calc(1vh / 8 / 2); */
+  /* left: calc(1vh / 8 / 4); */
+  top: 5em;
+  left: 5em;
   transform: rotate(60deg);
 }
 
