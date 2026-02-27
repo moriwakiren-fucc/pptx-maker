@@ -17,8 +17,8 @@ h2 {
   background: #FFFFFFCC;
   position: fixed;
   top: 0;
-  font-size: 1em;
-  left: calc(1vh / 8 * 1.5);
+  font-size: 2.5em;
+  left: 4em;
   z-index: 100;
 }
 
@@ -30,8 +30,8 @@ h2 {
   align-items: center;
   position: fixed;
   top: 0;
-  height: calc(1vh / 8);
-  width: calc(1vh / 8);
+  height: 3em;
+  width: 3em;
   left: 0;
   z-index: 101;/* 重なり順を一番上にする */
   cursor: pointer;
@@ -43,33 +43,23 @@ h2 {
 .drawer_open .icon:after {
   content: '';
   display: block;
-  height: calc(1vh / 8 / 16);
-  width: calc(1vh / 8 * 0.85);
-  border-radius: calc(1vh / 8 / 6);
+  height: calc(3em / 8);
+  width: calc(3em * 0.85);
+  border-radius: calc(3em / 6);
   background: #333;
   transition: 0.5s;
   position: absolute;
   z-index:103;
 }
 
-.drawer_open .icon {
-  bottom: calc(1vh / 8);
-}
-
 /* 三本線の一番上の棒の位置調整 */
 .drawer_open .icon:before {
-  /* top: calc(1vh / 8 / 2); */
-  /* left: calc(1vh / 8 / 4); */
-  top: 5em;
-  left: 5em;
-  transform: rotate(60deg);
+  bottom: calc(3em / 4);
 }
 
 /* 三本線の一番下の棒の位置調整 */
 .drawer_open .icon:after {
-  top: calc(1vh / 8 / 2);
-  right: calc(1vh / 8 / 4);
-  transform: rotate(-60deg);
+  top: calc(3em / 4);
 }
 
 /* アイコンがクリックされたら真ん中の線を透明にする */
