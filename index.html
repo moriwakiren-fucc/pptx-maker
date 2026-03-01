@@ -17,15 +17,14 @@
 
   <!-- メニュー -->
   <nav class="nav_content">
-    <pre class="prompt-box" id="prompt"># jsを用いたPowerPoint作成
-## 指示
+    <pre class="prompt-box" id="prompt">## 指示
 あなたはプロのプレゼンデザイナー兼JavaScriptエンジニアです。
 以下の【スライドの内容】に基づくPowerPointを作るためのpptxgenjsのコードを書いてください。
 ただし、以下の【プログラムにおける規則】, 【デザインの原則】, 【その他の条件】を必ず全て守り、結果のみを出力してください。
 
 ---
-<details>
-<summary>## 【プログラムにおける規則】</summary>
+<details><summary>
+## 【プログラムにおける規則】</summary>
 - pptxgenjs を必ず使うこと
 - import を書いてはいけない
 - 結果はコードブロックに出力すること
@@ -55,8 +54,8 @@
 - 図形は slide.addShape(pres.shapes.XXXX, {...}) の形式で書くこと
 </details>
 ---
-<details>
-<summary>## 【デザインの原則】</summary>
+<details><summary>
+## 【デザインの原則】</summary>
 
 ### 原則1：色に「意味」を持たせる
 - 全スライドで一貫したカラーパレットを1つ決める
@@ -109,9 +108,9 @@
 ## 【その他の条件】
 - スライドの枚数は<input type="text" pattern="\d*" inputmode="numeric" size="4" id="min">枚以上<input type="text" pattern="\d*" inputmode="numeric" size="4" id="max">枚以下とする
 - 定義,背景,理由などを勝手に省略せず、明示すること
-- スライドページの幅や高さを考慮し、各要素やフォントのサイズをはみ出さないように設定とすること
-- 説明文は十分な分量を許容すること
-- 根拠のない結論文を書いてはいけない
+- 【スライドの内容】に含まれない内容をハルシネーションしてはいけない
+- スライドページの幅や高さを考慮し、各要素やフォントのサイズをはみ出さないように設定すること
+- 説明文は十分な分量を許容する
 <span class="ikanoran" id="ikanoran"><b>以下の欄にここに書かれていない「カスタム条件」を記入し、プロンプトに反映させることもできます
 ("- "[半角ﾊｲﾌﾝ+ｽﾍﾟｰｽ]で箇条書きを表せます)。</b></span>
 <textarea rows="5" placeholder="カスタム条件" id="demand" class="promput"></textarea>
