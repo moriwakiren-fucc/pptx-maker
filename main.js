@@ -106,3 +106,80 @@ document.addEventListener(
   },
   true
 );
+
+// ===============================
+// 保存・復元機能
+// ===============================
+
+// pptxコードからファイル名を推測
+function extractPptxTitle(code) {
+  const match = code.match(/writeFile\s*\(\s*["'`](.+?)["'`]\s*\)/);
+  return match ? match[1].replace(/\.pptx$/i, "") : "";
+}
+
+const slideTitleInput = document.getElementById("slideTitle");
+const saveBtn = document.getElementById("saveBtn");
+const savedList = document.getElementById("savedList");
+
+// codeInputが変更されたらタイトル自動補完
+codeInput.addEventListener("input", () => {
+  if (slideTitleInput.value.trim() !== "") return;
+  const title = extractPptxTitle(codeInput.value);
+  if (title) slideTitleInput.value = title;
+});
+
+saveBtn.addEventListener("click", () => {
+  const title = slideTitleInput.value.trim();
+
+  if (!title) {
+    alert("タイトルを入力してください");
+    return;
+  }
+
+  const data = {
+    title,
+    min: document.getElementById("min")?.value || "",
+    max: document.getElementById("max")?.value || "",
+    demand: document.getElementById("demand")?.value || "",
+    content: document.getElementById("promput")?.value || "",
+    code: codeInput.value || ""
+  };
+
+  localStorage.setItem("pptx_" + title, JSON.stringify(data));
+  addSavedItem(data);
+});
+
+// 保存済みデータを表示
+function addSavedItem(data) {
+  const wrapper = document.createElement("details");
+
+  const summary = document.createElement("summary");
+  summary.textContent = data.title;
+
+  const loadBtn = document.createElement("button");
+  loadBtn.textContent = "入力";
+  loadBtn.style.marginLeft = "8px";
+  loadBtn.onclick = () => restoreData(data);
+
+  summary.appendChild(loadBtn);
+  wrapper.appendChild(summary);
+
+  const pre = document.createElement("pre");
+  pre.textContent =
+    "【カスタム条件】\n" + data.demand +
+    "\n\n【スライド内容】\n" + data.content +
+    "\n\n【pptxgenjsコード】\n" + data.code;
+
+  wrapper.appendChild(pre);
+  savedList.prepend(wrapper);
+}
+
+// 入力欄へ復元
+function restoreData(data) {
+  slideTitleInput.value = data.title;
+  document.getElementById("min").value = data.min;
+  document.getElementById("max").value = data.max;
+  document.getElementById("demand").value = data.demand;
+  document.getElementById("promput").value = data.content;
+  codeInput.value = data.code;
+}
