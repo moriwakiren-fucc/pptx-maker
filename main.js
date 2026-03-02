@@ -108,6 +108,48 @@ document.addEventListener(
 );
 
 // ===============================
+// pptx 保存専用ストレージ
+// ===============================
+const PptxStore = {
+  prefix: "pptx_",
+
+  save(title, data) {
+    localStorage.setItem(
+      this.prefix + title,
+      JSON.stringify(data)
+    );
+  },
+
+  load(title) {
+    const raw = localStorage.getItem(this.prefix + title);
+    return raw ? JSON.parse(raw) : null;
+  },
+
+  loadAll() {
+    return Object.keys(localStorage)
+      .filter(k => k.startsWith(this.prefix))
+      .map(k => {
+        try {
+          return JSON.parse(localStorage.getItem(k));
+        } catch {
+          return null;
+        }
+      })
+      .filter(Boolean);
+  },
+
+  remove(title) {
+    localStorage.removeItem(this.prefix + title);
+  },
+
+  clearAll() {
+     Object.keys(localStorage)
+        .filter(k => k.startsWith(this.prefix))
+        .forEach(k => localStorage.removeItem(k));
+  }
+};
+
+// ===============================
 // 保存・復元機能（拡張版）
 // ===============================
 
@@ -132,10 +174,8 @@ clearAllBtn.textContent = "保存項目をすべて削除";
 clearAllBtn.style.marginBottom = "8px";
 clearAllBtn.onclick = () => {
   if (!confirm("保存されたすべての項目を削除します。よろしいですか？")) return;
-  Object.keys(localStorage)
-    .filter(k => k.startsWith("pptx_"))
-    .forEach(k => localStorage.removeItem(k));
-  savedList.innerHTML = "";
+   PptxStore.clearAll();
+   savedList.innerHTML = "";
 };
 savedList.before(clearAllBtn);
 
@@ -185,8 +225,8 @@ saveBtn.addEventListener("click", () => {
     code: codeInput.value || ""
   };
 
-  localStorage.setItem("pptx_" + title, JSON.stringify(data));
-  addSavedItem(data);
+   PptxStore.save(title, data);
+   addSavedItem(data);
 });
 
 // 保存表示
@@ -233,3 +273,10 @@ function restoreData(data) {
   document.getElementById("promput").value = data.content;
   codeInput.value = data.code;
 }
+
+// ===============================
+// ページ読み込み時に保存一覧を復元
+// ===============================
+window.addEventListener("DOMContentLoaded", () => {
+  PptxStore.loadAll().forEach(addSavedItem);
+});
