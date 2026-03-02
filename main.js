@@ -47,82 +47,57 @@ const errorBox = document.getElementById("errorBox");
 runBtn.addEventListener("click", () => {
   errorBox.textContent = "";
 
-  const userCode = codeInput.value;
-
   try {
     const wrapper = new Function(
       "PptxGenJS",
-      `"use strict";\n${userCode}`
+      `"use strict";\n${codeInput.value}`
     );
     wrapper(PptxGenJS);
-
   } catch (err) {
-    errorBox.textContent = formatError(err, userCode);
+    errorBox.textContent = formatError(err, codeInput.value);
   }
 });
 
 /* ------------------------------
-   エラー整形（行番号対応）
+   エラー整形
 ------------------------------ */
 function formatError(err, code) {
-  let message = "エラーが発生しました\n\n";
-  message += `種類: ${err.name}\n`;
-  message += `内容: ${err.message}\n`;
+  let msg = "エラーが発生しました\n\n";
+  msg += `種類: ${err.name}\n`;
+  msg += `内容: ${err.message}\n`;
 
   if (err.stack) {
-    const match = err.stack.match(/<anonymous>:(\d+):(\d+)/);
-    if (match) {
-      const line = Number(match[1]) - 1; // "use strict" 分を引く
-      const col = match[2];
-
-      const codeLines = code.split("\n");
-      const errorLine = codeLines[line - 1] || "";
-
-      message += `行番号: ${line}\n`;
-      message += `列番号: ${col}\n\n`;
-      message += "該当行:\n";
-      message += errorLine;
+    const m = err.stack.match(/<anonymous>:(\d+):(\d+)/);
+    if (m) {
+      const line = Number(m[1]) - 1;
+      const col = m[2];
+      const codeLine = code.split("\n")[line - 1] || "";
+      msg += `行: ${line}\n列: ${col}\n\n該当行:\n${codeLine}`;
     }
   }
-
-  return message;
+  return msg;
 }
 
 /* ------------------------------
-   入力欄フォーカス解除
+   フォーカス解除
 ------------------------------ */
-document.addEventListener(
-  "pointerdown",
-  (e) => {
-    const active = document.activeElement;
+document.addEventListener("pointerdown", e => {
+  const a = document.activeElement;
+  if (
+    a &&
+    (a.tagName === "INPUT" || a.tagName === "TEXTAREA") &&
+    !a.contains(e.target)
+  ) a.blur();
+}, true);
 
-    if (
-      active &&
-      (active.tagName === "INPUT" || active.tagName === "TEXTAREA") &&
-      !active.contains(e.target)
-    ) {
-      active.blur();
-    }
-  },
-  true
-);
-
-// ===============================
-// pptx 保存専用ストレージ
-// ===============================
+/* ===============================
+   pptx 保存専用ストレージ
+=============================== */
 const PptxStore = {
   prefix: "pptx_",
 
-  save(title, data) {
-    localStorage.setItem(
-      this.prefix + title,
-      JSON.stringify(data)
-    );
-  },
-
-  load(title) {
-    const raw = localStorage.getItem(this.prefix + title);
-    return raw ? JSON.parse(raw) : null;
+  save(key, data) {
+    localStorage.setItem(this.prefix + key, JSON.stringify(data));
   },
 
   loadAll() {
@@ -130,7 +105,7 @@ const PptxStore = {
       .filter(k => k.startsWith(this.prefix))
       .map(k => {
         try {
-          return JSON.parse(localStorage.getItem(k));
+          return { key: k, data: JSON.parse(localStorage.getItem(k)) };
         } catch {
           return null;
         }
@@ -138,26 +113,20 @@ const PptxStore = {
       .filter(Boolean);
   },
 
-  remove(title) {
-    localStorage.removeItem(this.prefix + title);
+  remove(key) {
+    localStorage.removeItem(key);
   },
 
   clearAll() {
-     Object.keys(localStorage)
-        .filter(k => k.startsWith(this.prefix))
-        .forEach(k => localStorage.removeItem(k));
+    Object.keys(localStorage)
+      .filter(k => k.startsWith(this.prefix))
+      .forEach(k => localStorage.removeItem(k));
   }
 };
 
-// ===============================
-// 保存・復元機能（拡張版）
-// ===============================
-
-function extractPptxTitle(code) {
-  const match = code.match(/writeFile\s*\(\s*["'`](.+?)["'`]\s*\)/);
-  return match ? match[1].replace(/\.pptx$/i, "") : "";
-}
-
+/* ===============================
+   保存・復元
+=============================== */
 function nowString() {
   const d = new Date();
   return `${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,"0")}/${String(d.getDate()).padStart(2,"0")} ` +
@@ -168,115 +137,80 @@ const slideTitleInput = document.getElementById("slideTitle");
 const saveBtn = document.getElementById("saveBtn");
 const savedList = document.getElementById("savedList");
 
-// 一括削除ボタン
+/* 一括削除 */
 const clearAllBtn = document.createElement("button");
 clearAllBtn.textContent = "保存項目をすべて削除";
-clearAllBtn.style.marginBottom = "8px";
 clearAllBtn.onclick = () => {
-  if (!confirm("保存されたすべての項目を削除します。よろしいですか？")) return;
-   PptxStore.clearAll();
-   savedList.innerHTML = "";
+  if (!confirm("全削除しますか？")) return;
+  PptxStore.clearAll();
+  savedList.innerHTML = "";
 };
 savedList.before(clearAllBtn);
 
-// タイトル自動補完
-codeInput.addEventListener("input", () => {
-  if (slideTitleInput.value.trim()) return;
-  const title = extractPptxTitle(codeInput.value);
-  if (title) slideTitleInput.value = title;
-});
-
-// 保存処理
+/* 保存 */
 saveBtn.addEventListener("click", () => {
-  let title = slideTitleInput.value.trim();
+  const title = slideTitleInput.value.trim();
   if (!title) {
     alert("タイトルを入力してください");
     return;
   }
 
-  const baseKey = "pptx_" + title;
-  if (localStorage.getItem(baseKey)) {
-    const choice = prompt(
-      "同じタイトルが存在します。\n\n" +
-      "1: 置き換える\n" +
-      "2: 両方保存する\n" +
-      "その他: キャンセル\n\n" +
-      "番号を入力してください"
-    );
-
-    if (choice === "1") {
-      // そのまま上書き
-    } else if (choice === "2") {
-      let i = 2;
-      while (localStorage.getItem(`pptx_${title}_${i}`)) i++;
-      title = `${title}_${i}`;
-    } else {
-      return;
-    }
-  }
+  const key = Date.now().toString(); // ★ 常に一意
 
   const data = {
     title,
     savedAt: nowString(),
-    min: document.getElementById("min")?.value || "",
-    max: document.getElementById("max")?.value || "",
-    demand: document.getElementById("demand")?.value || "",
-    content: document.getElementById("promput")?.value || "",
-    code: codeInput.value || ""
+    min: min.value,
+    max: max.value,
+    demand: demand.value,
+    content: promput.value,
+    code: codeInput.value
   };
 
-   PptxStore.save(title, data);
-   addSavedItem(data);
+  PptxStore.save(key, data);
+  addSavedItem(key, data);
 });
 
-// 保存表示
-function addSavedItem(data) {
-  const wrapper = document.createElement("details");
+/* 表示 */
+function addSavedItem(key, data) {
+  const d = document.createElement("details");
+  const s = document.createElement("summary");
+  s.textContent = `${data.title}（${data.savedAt}）`;
 
-  const summary = document.createElement("summary");
-  summary.textContent = `${data.title}（${data.savedAt}）`;
+  const load = document.createElement("button");
+  load.textContent = "入力";
+  load.onclick = () => restoreData(data);
 
-  const loadBtn = document.createElement("button");
-  loadBtn.textContent = "入力";
-  loadBtn.style.marginLeft = "8px";
-  loadBtn.onclick = () => restoreData(data);
-
-  const deleteBtn = document.createElement("button");
-  deleteBtn.textContent = "削除";
-  deleteBtn.style.marginLeft = "4px";
-  deleteBtn.onclick = () => {
-    if (!confirm(`「${data.title}」を削除しますか？`)) return;
-    localStorage.removeItem("pptx_" + data.title);
-    wrapper.remove();
+  const del = document.createElement("button");
+  del.textContent = "削除";
+  del.onclick = () => {
+    if (!confirm("削除しますか？")) return;
+    PptxStore.remove(key);
+    d.remove();
   };
 
-  summary.append(loadBtn, deleteBtn);
-  wrapper.appendChild(summary);
+  s.append(load, del);
+  d.append(s);
 
   const pre = document.createElement("pre");
   pre.textContent =
-    "【保存日時】\n" + data.savedAt +
-    "\n\n【その他条件】\n" + data.demand +
-    "\n\n【スライド内容】\n" + data.content +
-    "\n\n【pptxgenjsコード】\n" + data.code;
+    `【保存日時】\n${data.savedAt}\n\n【その他条件】\n${data.demand}\n\n【スライド内容】\n${data.content}\n\n【コード】\n${data.code}`;
 
-  wrapper.appendChild(pre);
-  savedList.prepend(wrapper);
+  d.append(pre);
+  savedList.prepend(d);
 }
 
-// 復元
+/* 復元 */
 function restoreData(data) {
   slideTitleInput.value = data.title;
-  document.getElementById("min").value = data.min;
-  document.getElementById("max").value = data.max;
-  document.getElementById("demand").value = data.demand;
-  document.getElementById("promput").value = data.content;
+  min.value = data.min;
+  max.value = data.max;
+  demand.value = data.demand;
+  promput.value = data.content;
   codeInput.value = data.code;
 }
 
-// ===============================
-// ページ読み込み時に保存一覧を復元
-// ===============================
+/* 初期復元 */
 window.addEventListener("DOMContentLoaded", () => {
-  PptxStore.loadAll().forEach(addSavedItem);
+  PptxStore.loadAll().forEach(o => addSavedItem(o.key, o.data));
 });
