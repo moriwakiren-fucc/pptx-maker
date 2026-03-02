@@ -108,36 +108,76 @@ document.addEventListener(
 );
 
 // ===============================
-// 保存・復元機能
+// 保存・復元機能（拡張版）
 // ===============================
 
-// pptxコードからファイル名を推測
 function extractPptxTitle(code) {
   const match = code.match(/writeFile\s*\(\s*["'`](.+?)["'`]\s*\)/);
   return match ? match[1].replace(/\.pptx$/i, "") : "";
+}
+
+function nowString() {
+  const d = new Date();
+  return `${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,"0")}/${String(d.getDate()).padStart(2,"0")} ` +
+         `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
 }
 
 const slideTitleInput = document.getElementById("slideTitle");
 const saveBtn = document.getElementById("saveBtn");
 const savedList = document.getElementById("savedList");
 
-// codeInputが変更されたらタイトル自動補完
+// 一括削除ボタン
+const clearAllBtn = document.createElement("button");
+clearAllBtn.textContent = "保存項目をすべて削除";
+clearAllBtn.style.marginBottom = "8px";
+clearAllBtn.onclick = () => {
+  if (!confirm("保存されたすべての項目を削除します。よろしいですか？")) return;
+  Object.keys(localStorage)
+    .filter(k => k.startsWith("pptx_"))
+    .forEach(k => localStorage.removeItem(k));
+  savedList.innerHTML = "";
+};
+savedList.before(clearAllBtn);
+
+// タイトル自動補完
 codeInput.addEventListener("input", () => {
-  if (slideTitleInput.value.trim() !== "") return;
+  if (slideTitleInput.value.trim()) return;
   const title = extractPptxTitle(codeInput.value);
   if (title) slideTitleInput.value = title;
 });
 
+// 保存処理
 saveBtn.addEventListener("click", () => {
-  const title = slideTitleInput.value.trim();
-
+  let title = slideTitleInput.value.trim();
   if (!title) {
     alert("タイトルを入力してください");
     return;
   }
 
+  const baseKey = "pptx_" + title;
+  if (localStorage.getItem(baseKey)) {
+    const choice = prompt(
+      "同じタイトルが存在します。\n\n" +
+      "1: 置き換える\n" +
+      "2: 両方保存する\n" +
+      "その他: キャンセル\n\n" +
+      "番号を入力してください"
+    );
+
+    if (choice === "1") {
+      // そのまま上書き
+    } else if (choice === "2") {
+      let i = 2;
+      while (localStorage.getItem(`pptx_${title}_${i}`)) i++;
+      title = `${title}_${i}`;
+    } else {
+      return;
+    }
+  }
+
   const data = {
     title,
+    savedAt: nowString(),
     min: document.getElementById("min")?.value || "",
     max: document.getElementById("max")?.value || "",
     demand: document.getElementById("demand")?.value || "",
@@ -149,24 +189,34 @@ saveBtn.addEventListener("click", () => {
   addSavedItem(data);
 });
 
-// 保存済みデータを表示
+// 保存表示
 function addSavedItem(data) {
   const wrapper = document.createElement("details");
 
   const summary = document.createElement("summary");
-  summary.textContent = data.title;
+  summary.textContent = `${data.title}（${data.savedAt}）`;
 
   const loadBtn = document.createElement("button");
   loadBtn.textContent = "入力";
   loadBtn.style.marginLeft = "8px";
   loadBtn.onclick = () => restoreData(data);
 
-  summary.appendChild(loadBtn);
+  const deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "削除";
+  deleteBtn.style.marginLeft = "4px";
+  deleteBtn.onclick = () => {
+    if (!confirm(`「${data.title}」を削除しますか？`)) return;
+    localStorage.removeItem("pptx_" + data.title);
+    wrapper.remove();
+  };
+
+  summary.append(loadBtn, deleteBtn);
   wrapper.appendChild(summary);
 
   const pre = document.createElement("pre");
   pre.textContent =
-    "【カスタム条件】\n" + data.demand +
+    "【保存日時】\n" + data.savedAt +
+    "\n\n【その他条件】\n" + data.demand +
     "\n\n【スライド内容】\n" + data.content +
     "\n\n【pptxgenjsコード】\n" + data.code;
 
@@ -174,7 +224,7 @@ function addSavedItem(data) {
   savedList.prepend(wrapper);
 }
 
-// 入力欄へ復元
+// 復元
 function restoreData(data) {
   slideTitleInput.value = data.title;
   document.getElementById("min").value = data.min;
