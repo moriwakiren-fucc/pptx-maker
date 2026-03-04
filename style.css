@@ -105,6 +105,7 @@ h1 {
 }
 
 .AIbuttons{
+  background-color: #FFFFFF;
   display: flex;
   margin-bottom: 4px;
   gap: 2px;
